@@ -1,0 +1,382 @@
+.staggered-menu-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 10vh; /* Use viewport height for consistent mobile sizing */
+  z-index: 40;
+  /* Prevent layout shift during hydration */
+  contain: layout style;
+}
+
+.staggered-menu-wrapper.fixed-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 40;
+  overflow: hidden;
+}
+
+.staggered-menu-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 10vh; /* Match wrapper height using vh */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vh 4vw; /* Use viewport units for responsive padding */
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.staggered-menu-header > * {
+  pointer-events: auto;
+}
+
+.sm-logo {
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.sm-logo-img {
+  display: block;
+  height: clamp(20px, 4vh, 32px); /* Responsive logo with min/max limits */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Button styles now handled by Tailwind classes */
+/* Prevent FOUC by ensuring button has proper initial styles */
+.sm-toggle, button[class*="bg-blue-600"] {
+  color: white !important;
+  background-color: #3B82F6 !important;
+}
+
+.sm-toggle svg, button[class*="bg-blue-600"] svg {
+  color: white !important;
+  fill: white !important;
+}
+
+/* Ensure text is visible */
+.sm-toggle-textWrap, .sm-toggle-textInner, .sm-toggle-line {
+  color: white !important;
+}
+
+button[class*="bg-blue-600"] .sm-toggle-textWrap,
+button[class*="bg-blue-600"] .sm-toggle-textInner,
+button[class*="bg-blue-600"] .sm-toggle-line {
+  color: white !important;
+}
+
+.sm-line:last-of-type {
+  margin-top: 6px;
+}
+
+.sm-toggle-textWrap {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  width: var(--sm-toggle-width, auto);
+  min-width: var(--sm-toggle-width, auto);
+}
+
+.sm-toggle-textInner {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.sm-toggle-line {
+  display: block;
+  height: 1em;
+  line-height: 1;
+}
+
+/* Icon styles now handled by Tailwind classes */
+
+.sm-panel-itemWrap {
+  position: relative;
+  overflow: hidden;
+  line-height: 1;
+}
+
+/* Icon line styles removed - now using Lucide Plus icon */
+
+.sm-line {
+  display: none !important;
+}
+
+.staggered-menu-panel {
+  position: fixed;
+  top: 10vh; /* Start below the header */
+  right: 0;
+  width: 100vw; /* Full width on mobile */
+  height: 90vh; /* Full viewport height minus header space */
+  background: white;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  padding: 2vh 6vw 8vh 6vw; /* Reduced top padding since we start below header */
+  overflow-y: auto;
+  z-index: 50; /* Higher z-index to ensure it's above everything */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+[data-position='left'] .staggered-menu-panel {
+  right: auto;
+  left: 0;
+}
+
+
+.sm-prelayers {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: clamp(260px, 38vw, 420px);
+  height: 100vh; /* Use full viewport height */
+  pointer-events: none;
+  z-index: 5;
+}
+
+[data-position='left'] .sm-prelayers {
+  right: auto;
+  left: 0;
+}
+
+.sm-prelayer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh; /* Use full viewport height */
+  width: 100%;
+  transform: translateX(0);
+}
+
+.sm-panel-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh; /* Use viewport height for responsive gap */
+}
+
+.sm-socials {
+  margin-top: auto;
+  padding-top: 2vh; /* Reduced padding to fit more content */
+  padding-bottom: 4vh; /* Add bottom padding to ensure content is visible */
+  display: flex;
+  flex-direction: column;
+  gap: 1vh; /* Reduced gap to fit more content */
+}
+
+.sm-socials-title {
+  margin: 0;
+  font-size: 16px; /* Fixed font size for better readability */
+  font-weight: 500;
+  color: var(--sm-accent, #ff0000);
+}
+
+.sm-socials-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2vw; /* Use viewport width for responsive gap */
+  flex-wrap: wrap;
+}
+
+.sm-socials-list .sm-socials-link {
+  opacity: 1;
+}
+
+.sm-socials-list:hover .sm-socials-link {
+  opacity: 0.35;
+}
+
+.sm-socials-list:hover .sm-socials-link:hover {
+  opacity: 1;
+}
+
+.sm-socials-link:focus-visible {
+  outline: 2px solid var(--sm-accent, #ff0000);
+  outline-offset: 3px;
+}
+
+.sm-socials-list:focus-within .sm-socials-link {
+  opacity: 0.35;
+}
+
+.sm-socials-list:focus-within .sm-socials-link:focus-visible {
+  opacity: 1;
+}
+
+.sm-socials-link {
+  font-size: 18px; /* Fixed font size for better readability */
+  font-weight: 500;
+  color: #111;
+  text-decoration: none;
+  position: relative;
+  padding: 0.5vh 0; /* Use viewport height for responsive padding */
+  display: inline-block;
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.sm-socials-link:hover {
+  color: var(--sm-accent, #ff0000);
+}
+
+.sm-panel-title {
+  margin: 0;
+  font-size: 16px; /* Fixed font size for better readability */
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.sm-panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh; /* Use viewport height for responsive gap */
+}
+
+.sm-panel-item {
+  position: relative;
+  color: #000;
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3.5rem); /* Smaller font size to fit more content */
+  cursor: pointer;
+  line-height: 1.1; /* Slightly more line height for better readability */
+  letter-spacing: -1px; /* Fixed letter spacing for better readability */
+  text-transform: uppercase;
+  transition:
+    background 0.25s,
+    color 0.25s;
+  display: inline-block;
+  text-decoration: none;
+  padding-right: 2.5rem; /* Reduced padding to bring numbers closer */
+  margin-bottom: 0.5vh; /* Add some spacing between items */
+}
+
+.staggered-menu-panel .sm-socials-list .sm-socials-link {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.staggered-menu-panel .sm-socials-list:hover .sm-socials-link:not(:hover) {
+  opacity: 0.35;
+}
+
+.staggered-menu-panel .sm-socials-list:focus-within .sm-socials-link:not(:focus-visible) {
+  opacity: 0.35;
+}
+
+.staggered-menu-panel .sm-socials-list .sm-socials-link:hover,
+.staggered-menu-panel .sm-socials-list .sm-socials-link:focus-visible {
+  opacity: 1;
+}
+
+.sm-panel-itemLabel {
+  display: inline-block;
+  will-change: transform;
+  transform-origin: 50% 100%;
+}
+
+.sm-panel-item:hover {
+  color: var(--sm-accent, #5227ff);
+}
+
+.sm-panel-list[data-numbering] {
+  counter-reset: smItem;
+}
+
+.sm-panel-list[data-numbering] .sm-panel-item::after {
+  counter-increment: smItem;
+  content: counter(smItem, decimal-leading-zero);
+  position: absolute;
+  top: 0.1em;
+  right: 0.25rem; /* Reduced gap to bring numbers closer to text */
+  font-size: 14px; /* Smaller font size for numbers */
+  font-weight: 400;
+  color: var(--sm-accent, #5227ff);
+  letter-spacing: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--sm-num-opacity, 0);
+}
+
+@media (max-width: 1024px) {
+  .staggered-menu-panel {
+    width: 100vw;
+    left: 0;
+    right: 0;
+    top: 10vh; /* Start below the header */
+    height: 90vh; /* Full viewport height minus header space */
+    padding: 2vh 5vw 6vh 5vw; /* Reduced top padding for tablets */
+  }
+
+  .staggered-menu-wrapper[data-open] .sm-logo-img {
+    filter: invert(100%);
+  }
+
+  .sm-logo-img {
+    height: clamp(22px, 3.8vh, 30px); /* Responsive logo for medium screens */
+  }
+
+  .sm-panel-item {
+    font-size: clamp(1.8rem, 4.5vw, 3rem); /* Smaller font for tablets */
+  }
+}
+
+@media (max-width: 640px) {
+  .staggered-menu-panel {
+    width: 100vw;
+    left: 0;
+    right: 0;
+    top: 10vh; /* Start below the header */
+    height: 90vh; /* Full viewport height minus header space */
+    padding: 2vh 4vw 6vh 4vw; /* Reduced top padding for small phones */
+  }
+
+  .staggered-menu-wrapper[data-open] .sm-logo-img {
+    filter: invert(100%);
+  }
+
+  .staggered-menu-header {
+    padding: 1.5vh 5vw; /* Use viewport units for very small screens */
+  }
+
+  .sm-logo-img {
+    height: clamp(18px, 3.5vh, 28px); /* Responsive logo for very small screens */
+  }
+
+  .sm-panel-item {
+    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Even smaller font for small phones */
+    padding-right: 1.5rem; /* Reduced padding for very small screens */
+    margin-bottom: 0.3vh; /* Minimal spacing */
+  }
+
+  .sm-panel-list[data-numbering] .sm-panel-item::after {
+    right: 0.125rem; /* Even smaller gap for very small screens */
+    font-size: 12px; /* Smaller number font for very small screens */
+  }
+
+  .sm-socials {
+    padding-top: 1vh; /* Minimal padding for socials */
+    padding-bottom: 3vh; /* Add bottom padding for small phones */
+  }
+}

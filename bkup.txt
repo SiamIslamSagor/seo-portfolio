@@ -1,0 +1,428 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CheckCircle, Search, FileText, MapPin, Settings, Shield, Target, BarChart3 } from 'lucide-react';
+
+// Register GSAP plugins
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+const ProcessSection = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const progressLineRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+
+  const steps = [
+    {
+      number: 1,
+      title: "Strategic Revenue Audit",
+      description: "We begin by digging deep into your website's performance to uncover hidden opportunities and revenue leaks that competitors often miss. Our audit covers technical issues, content gaps, and local search potential. This process allows us to pinpoint exactly where you're losing potential customers and build a clear roadmap to start growing your bottom line from day one.",
+      icon: Search,
+      color: "from-blue-500 to-blue-600"
+    },
+    {
+      number: 2,
+      title: "High-Intent Keyword Targeting",
+      description: "Instead of chasing random keywords, SPM targets the exact search terms your ideal customers use when they're ready to hire or buy. Every keyword is carefully mapped to real buyer intent. This ensures that your site attracts visitors who are already interested in your services—people who convert into paying customers, not just casual browsers.",
+      icon: Target,
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      number: 3,
+      title: "Conversion-Optimized Content",
+      description: "Our expert writers craft web pages and blog posts that answer customer questions while naturally guiding them toward your services. Each piece of content is designed to solve problems and build trust with your audience. This approach turns website visitors into qualified leads by addressing their real concerns.",
+      icon: FileText,
+      color: "from-green-500 to-green-600"
+    },
+    {
+      number: 4,
+      title: "Local Dominance That Gets You Found",
+      description: "We optimize your Google Business Profile, build authoritative local citations, and ensure your business appears when people search for services \"near me\" in your area. This strategy captures nearby customers who need your services immediately, as local searches often convert best when people are ready to take action.",
+      icon: MapPin,
+      color: "from-orange-500 to-orange-600"
+    },
+    {
+      number: 5,
+      title: "Technical SEO for Better Experience",
+      description: "Behind the scenes, we fix issues that hurt performance—site speed (Core Web Vitals), mobile usability, and confusing navigation. These technical improvements keep potential customers engaged long enough to explore your services. Fast, seamless websites not only rank higher in search results but also convert better than slow, clunky ones.",
+      icon: Settings,
+      color: "from-red-500 to-red-600"
+    },
+    {
+      number: 6,
+      title: "Authority Building for Trust & Leads",
+      description: "We earn high-quality mentions and backlinks from trusted industry websites, local publications, and respected business directories. These signals tell Google—and your customers—that your business is credible and authoritative. As a result, your brand becomes the go-to choice in your market, gaining both trust and higher rankings.",
+      icon: Shield,
+      color: "from-indigo-500 to-indigo-600"
+    },
+    {
+      number: 7,
+      title: "Industry-Focused Optimization",
+      description: "Whether you're an electrician, lawyer, or cleaning service, we apply proven strategies tailored to your specific industry and audience. This ensures your SEO campaign leverages what's most effective for your market. Generic, one-size-fits-all SEO simply doesn't work when you're competing against specialists who know your industry inside and out.",
+      icon: CheckCircle,
+      color: "from-teal-500 to-teal-600"
+    },
+    {
+      number: 8,
+      title: "Revenue Tracking & ROI Reporting",
+      description: "Every month, you'll receive detailed reports showing exactly which SEO efforts are generating phone calls, form submissions, and new customers. There's no guesswork—just clear, actionable data. This transparency allows you to see the real value of your SEO investment and ensures your marketing budget is consistently working hard to grow your business.",
+      icon: BarChart3,
+      color: "from-pink-500 to-pink-600"
+    }
+  ];
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const ctx = gsap.context(() => {
+      // Create ScrollTrigger for the entire section
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top center",
+        end: "bottom center",
+        onUpdate: (self) => {
+          setProgress(self.progress);
+          
+          // Calculate active step based on progress
+          const stepProgress = self.progress * (steps.length - 1);
+          const currentStep = Math.min(steps.length - 1, Math.floor(stepProgress));
+          setActiveStep(currentStep);
+        }
+      });
+
+      // Animate progress line
+      if (progressLineRef.current) {
+        gsap.fromTo(progressLineRef.current, 
+          { scaleY: 0, transformOrigin: "top" },
+          {
+            scaleY: 1,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top center",
+              end: "bottom center",
+              scrub: 1
+            }
+          }
+        );
+      }
+
+      // Animate step indicators
+      stepRefs.current.forEach((stepRef, index) => {
+        if (stepRef) {
+          gsap.fromTo(stepRef,
+            { scale: 0.8, opacity: 0.5 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.5,
+              ease: "back.out(1.7)",
+              scrollTrigger: {
+                trigger: stepRef,
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        }
+      });
+
+      // Animate content cards (single position reveal)
+      contentRefs.current.forEach((contentRef, index) => {
+        if (contentRef) {
+          // Set initial state
+          gsap.set(contentRef, { opacity: 0, y: 30 });
+          
+          // Create scroll trigger for each step
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: "top center",
+            end: "bottom center",
+            onUpdate: (self) => {
+              const stepProgress = self.progress * (steps.length - 1);
+              const currentStep = Math.min(steps.length - 1, Math.floor(stepProgress));
+              
+              if (index === currentStep) {
+                gsap.to(contentRef, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.6,
+                  ease: "power2.out"
+                });
+              } else if (index < currentStep) {
+                gsap.to(contentRef, {
+                  opacity: 0,
+                  y: -30,
+                  duration: 0.4,
+                  ease: "power2.in"
+                });
+              } else {
+                gsap.to(contentRef, {
+                  opacity: 0,
+                  y: 30,
+                  duration: 0.4,
+                  ease: "power2.in"
+                });
+              }
+            }
+          });
+        }
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [steps.length]);
+
+  return (
+    <section ref={sectionRef} className="py-20 lg:py-32 bg-theme-background-alt bg-red-700 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-3xl lg:text-4xl font-bold text-theme-primary mb-6">
+            Our Strategic SEO Plan to Delivering Measurable Business Growth
+          </h2>
+          <p className="text-lg text-theme-secondary max-w-4xl mx-auto leading-relaxed">
+            At SPM, every SEO strategy is engineered around one goal: transforming your website into a revenue-generating machine that works 24/7. While other agencies chase vanity metrics, we focus exclusively on strategies that drive qualified leads, increase sales, and deliver measurable ROI.
+          </p>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden xl:block" style={{ minHeight: '200vh' }}>
+          <div className="flex">
+            {/* Left Side - Step Counter */}
+            <div className="w-1/3 pr-12">
+              <div ref={stickyRef} className="sticky top-32" style={{ position: 'sticky', top: '8rem' }}>
+                {/* Progress Line */}
+                <div className="relative">
+                  <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-theme-border-light"></div>
+                  <div 
+                    ref={progressLineRef}
+                    className="absolute left-6 top-0 w-0.5 bg-theme-accent"
+                    style={{ height: `${progress * 100}%` }}
+                  ></div>
+                </div>
+
+                {/* Step Indicators */}
+                <div className="space-y-8">
+                  {steps.map((step, index) => {
+                    const Icon = step.icon;
+                    const isActive = index === activeStep;
+                    const isCompleted = index < activeStep;
+                    
+                    return (
+                      <div
+                        key={step.number}
+                        ref={(el) => { stepRefs.current[index] = el; }}
+                        className={`relative flex items-center transition-all duration-500 ${
+                          isActive ? 'scale-105' : 'scale-100'
+                        }`}
+                      >
+                        {/* Step Circle */}
+                        <div className={`
+                          relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500
+                          ${isActive || isCompleted 
+                            ? `bg-linear-to-r ${step.color} text-white shadow-lg` 
+                            : 'bg-theme-background border-2 border-theme-border text-theme-secondary'
+                          }
+                        `}>
+                          {isCompleted ? (
+                            <CheckCircle className="w-6 h-6" />
+                          ) : (
+                            <span className="font-bold text-sm">{step.number}</span>
+                          )}
+                        </div>
+
+                        {/* Step Title */}
+                        <div className="ml-6 flex-1">
+                          <h3 className={`font-semibold text-sm transition-colors duration-300 ${
+                            isActive ? 'text-theme-primary' : 'text-theme-secondary'
+                          }`}>
+                            {step.title}
+                          </h3>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Content (Single Position) */}
+            <div className="w-2/3 pl-12">
+              <div className="sticky top-32" style={{ position: 'sticky', top: '8rem', height: 'calc(100vh - 8rem)' }}>
+                <div className="h-full flex items-center">
+                  <div className="w-full relative">
+                    {steps.map((step, index) => {
+                      const Icon = step.icon;
+                      const isActive = index === activeStep;
+                      
+                      return (
+                        <div
+                          key={step.number}
+                          ref={(el) => { contentRefs.current[index] = el; }}
+                          className={`absolute inset-0 transition-all duration-700 ${
+                            isActive 
+                              ? 'opacity-100 translate-y-0' 
+                              : 'opacity-0 translate-y-8'
+                          }`}
+                        >
+                          <div className="bg-theme-background rounded-2xl p-8 shadow-theme-light border border-theme-border-light">
+                            {/* Step Header */}
+                            <div className="flex items-center mb-6">
+                              <div className={`w-16 h-16 rounded-xl bg-linear-to-r ${step.color} flex items-center justify-center mr-6`}>
+                                <Icon className="w-8 h-8 text-white" />
+                              </div>
+                              <div>
+                                <div className="text-sm font-medium text-theme-accent mb-1">
+                                  Step {step.number}
+                                </div>
+                                <h3 className="text-2xl font-bold text-theme-primary">
+                                  {step.title}
+                                </h3>
+                              </div>
+                            </div>
+
+                            {/* Step Description */}
+                            <p className="text-theme-secondary leading-relaxed text-lg">
+                              {step.description}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tablet Layout */}
+        <div className="hidden lg:block xl:hidden">
+          <div className="space-y-8">
+            {/* Tablet Progress Bar */}
+            <div className="w-full bg-theme-border-light rounded-full h-3 mb-8">
+              <div 
+                className="bg-theme-accent h-3 rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
+              ></div>
+            </div>
+
+            {/* Tablet Steps Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {steps.map((step, index) => {
+                const Icon = step.icon;
+                const isActive = index === activeStep;
+                const isVisible = index <= activeStep;
+                
+                return (
+                  <div
+                    key={step.number}
+                    ref={(el) => { contentRefs.current[index] = el; }}
+                    className={`transition-all duration-700 ${
+                      isVisible 
+                        ? 'opacity-100 translate-y-0' 
+                        : 'opacity-0 translate-y-8'
+                    }`}
+                  >
+                    <div className={`bg-theme-background rounded-xl p-6 shadow-theme-light border h-full transition-all duration-300 ${
+                      isActive ? 'border-theme-accent shadow-theme-accent' : 'border-theme-border-light'
+                    }`}>
+                      {/* Tablet Step Header */}
+                      <div className="flex items-center mb-4">
+                        <div className={`w-12 h-12 rounded-lg bg-linear-to-r ${step.color} flex items-center justify-center mr-4`}>
+                          <Icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-xs font-medium text-theme-accent mb-1">
+                            Step {step.number}
+                          </div>
+                          <h3 className="text-lg font-bold text-theme-primary">
+                            {step.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                      {/* Tablet Step Description */}
+                      <p className="text-theme-secondary leading-relaxed text-sm">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Layout */}
+        <div className="lg:hidden">
+          <div className="space-y-6">
+            {/* Mobile Progress Bar */}
+            <div className="w-full bg-theme-border-light rounded-full h-2 mb-6">
+              <div 
+                className="bg-theme-accent h-2 rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
+              ></div>
+            </div>
+
+            {/* Mobile Steps */}
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              const isActive = index === activeStep;
+              const isVisible = index <= activeStep;
+              
+              return (
+                <div
+                  key={step.number}
+                  ref={(el) => { contentRefs.current[index] = el; }}
+                  className={`transition-all duration-700 ${
+                    isVisible 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-8'
+                  }`}
+                >
+                  <div className={`bg-theme-background rounded-xl p-6 shadow-theme-light border transition-all duration-300 ${
+                    isActive ? 'border-theme-accent shadow-theme-accent' : 'border-theme-border-light'
+                  }`}>
+                    {/* Mobile Step Header */}
+                    <div className="flex items-center mb-4">
+                      <div className={`w-12 h-12 rounded-lg bg-linear-to-r ${step.color} flex items-center justify-center mr-4`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-xs font-medium text-theme-accent mb-1">
+                          Step {step.number}
+                        </div>
+                        <h3 className="text-lg font-bold text-theme-primary">
+                          {step.title}
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* Mobile Step Description */}
+                    <p className="text-theme-secondary leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProcessSection;

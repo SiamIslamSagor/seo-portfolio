@@ -5,6 +5,8 @@
   z-index: 40;
   /* Prevent layout shift during hydration */
   contain: layout style;
+  overflow: hidden; /* Hide content that exceeds max height */
+  transition: max-height 0.3s ease; /* Smooth transition */
 }
 
 .staggered-menu-wrapper.fixed-wrapper {

@@ -37,7 +37,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Navigation />
-        <main className="pt-16 md:pt-20">
+        <main className="pt-[72px]">
           {children}
         </main>
       </body>

@@ -53,6 +53,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [heightRestricted, setHeightRestricted] = useState(false);
   const openRef = useRef(false);
   const panelRef = useRef<HTMLElement>(null);
   const preLayersRef = useRef<HTMLDivElement>(null);
@@ -337,6 +338,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     
     // Prevent body scrolling when menu is open - more comprehensive approach
     if (target) {
+      // Remove height restriction immediately when opening
+      setHeightRestricted(false);
       // Store current scroll position
       const scrollY = window.scrollY;
       document.body.style.position = 'fixed';
@@ -355,6 +358,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
       onMenuClose?.();
       playClose();
+      
+      // Add delay before applying height restriction to allow close animations to complete
+      setTimeout(() => {
+        setHeightRestricted(true);
+      }, 400); // 400ms delay to match close animation duration
     }
     animateIcon(target);
     animateColor(target);
@@ -384,7 +392,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   return (
     <div
       className={(className ? className + ' ' : '') + 'staggered-menu-wrapper' + (isFixed ? ' fixed-wrapper' : '')}
-      style={accentColor ? { ['--sm-accent' as any]: accentColor } : undefined}
+      style={{
+        ...(accentColor ? { ['--sm-accent' as any]: accentColor } : {}),
+        ...(heightRestricted ? { maxHeight: '92px' } : {})
+      }}
       data-position={position}
       data-open={open || undefined}
     >

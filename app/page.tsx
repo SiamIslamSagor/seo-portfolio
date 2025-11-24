@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+"use client";
+
 import Link from "next/link";
 import FAQ from "./components/FAQ";
 import FeaturedService from "./components/FeaturedService";
@@ -8,17 +11,113 @@ import TypewriterHero from "./components/TypewriterHero";
 import StatsSection from "./components/Stats";
 import WhyWorkWithMe from "./components/WhyWorkWithMe";
 import Contact from "./contact/page";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Home() {
+  const ormSectionRef = useRef<HTMLElement>(null);
+  const ormTitleRef = useRef<HTMLDivElement>(null);
+  const ormCardsRef = useRef<HTMLDivElement>(null);
+  const ctaSectionRef = useRef<HTMLElement>(null);
+  const ctaContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const ctx = gsap.context(() => {
+      // ORM Section animations
+      if (ormSectionRef.current) {
+        // Initial setup - hide elements
+        gsap.set([ormTitleRef.current, ormCardsRef.current], {
+          opacity: 0,
+          y: 50,
+        });
+
+        // Timeline animation on scroll
+        const ormTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ormSectionRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        ormTl.to(ormTitleRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        }).to(
+          ormCardsRef.current,
+          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+          "-=0.4"
+        );
+
+        // Stagger animation for ORM cards
+        const ormCards = ormCardsRef.current?.querySelectorAll<HTMLDivElement>(".orm-card");
+        if (ormCards && ormCards.length > 0) {
+          gsap.fromTo(
+            ormCards,
+            { opacity: 0, y: 30, scale: 0.95 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: ormCardsRef.current,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        }
+      }
+
+      // CTA Section animations
+      if (ctaSectionRef.current) {
+        // Initial setup - hide elements
+        gsap.set(ctaContentRef.current, {
+          opacity: 0,
+          y: 50,
+        });
+
+        // Timeline animation on scroll
+        gsap.to(ctaContentRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ctaSectionRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
   return (
     <div className="min-h-screen bg-theme-background-alt">
       {/* Hero Section */}
       <TypewriterHero />
 
-      <section className="py-20">
+      <section ref={ormSectionRef} className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Top Section — Client Required Content */}
-          <div className="text-center mb-16">
+          <div ref={ormTitleRef} className="text-center mb-16">
             <h2 className="text-3xl font-bold text-theme-primary mb-4">
               What Is ORM & Why It Matters
             </h2>
@@ -32,9 +131,9 @@ export default function Home() {
           </div>
 
           {/* Bottom Section — 3 Column Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div ref={ormCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1 */}
-            <div className="bg-theme-background rounded-lg shadow-theme-light p-8 text-center">
+            <div className="orm-card bg-theme-background rounded-lg shadow-theme-light p-8 text-center hover:shadow-lg transition-shadow duration-300">
               <div className="w-16 h-16 bg-theme-accent-light bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl">🔍</span>
               </div>
@@ -48,7 +147,7 @@ export default function Home() {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-theme-background rounded-lg shadow-theme-light p-8 text-center">
+            <div className="orm-card bg-theme-background rounded-lg shadow-theme-light p-8 text-center hover:shadow-lg transition-shadow duration-300">
               <div className="w-16 h-16 bg-theme-accent-light bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl">🛡️</span>
               </div>
@@ -62,7 +161,7 @@ export default function Home() {
             </div>
 
             {/* Card 3 */}
-            <div className="bg-theme-background rounded-lg shadow-theme-light p-8 text-center">
+            <div className="orm-card bg-theme-background rounded-lg shadow-theme-light p-8 text-center hover:shadow-lg transition-shadow duration-300">
               <div className="w-16 h-16 bg-theme-accent-light bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl">📈</span>
               </div>
@@ -140,18 +239,18 @@ export default function Home() {
       <FeaturedService />
 
       {/* CTA Section */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section ref={ctaSectionRef} className="py-20">
+        <div ref={ctaContentRef} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-theme-primary mb-4">
             Ready to Grow Your Business?
           </h2>
           <p className="text-lg text-theme-secondary mb-8">
-            Let’s discuss how I can help you achieve your SEO goals and drive
+            Let's discuss how I can help you achieve your SEO goals and drive
             sustainable organic growth.
           </p>
           <Link
             href="/contact"
-            className="bg-theme-accent text-theme-white px-8 py-3 rounded-lg font-medium hover:bg-theme-accent-hover transition-colors duration-200"
+            className="bg-theme-accent text-theme-white px-8 py-3 rounded-lg font-medium hover:bg-theme-accent-hover transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
           >
             Start Your Project
           </Link>

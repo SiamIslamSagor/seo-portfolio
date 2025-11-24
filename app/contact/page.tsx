@@ -2,10 +2,59 @@
 
 /* eslint-disable react/no-unescaped-entities */
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Contact() {
+  const contactSectionRef = useRef<HTMLDivElement>(null);
+  const formSectionRef = useRef<HTMLDivElement>(null);
+  const infoSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const ctx = gsap.context(() => {
+      // Contact Section animations
+      if (contactSectionRef.current) {
+        // Initial setup - hide elements
+        gsap.set([formSectionRef.current, infoSectionRef.current], {
+          opacity: 0,
+          y: 50,
+        });
+
+        // Timeline animation on scroll
+        const contactTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: contactSectionRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        contactTl.to(formSectionRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        }).to(
+          infoSectionRef.current,
+          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+          "-=0.4"
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div ref={contactSectionRef} className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Me</h1>
@@ -17,13 +66,7 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 200 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-white rounded-lg shadow-md p-8"
-          >
+          <div ref={formSectionRef} className="bg-white rounded-lg shadow-md p-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
               Send me a message
             </h2>
@@ -99,16 +142,10 @@ export default function Contact() {
                 Send Message
               </button>
             </form>
-          </motion.div>
+          </div>
 
           {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -200 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
-          >
+          <div ref={infoSectionRef} className="space-y-8">
             <div className="bg-white rounded-lg shadow-md p-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">
                 Get in touch
@@ -167,7 +204,7 @@ export default function Contact() {
                 your request.
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ export default function CaseStudies() {
             Case Studies
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore my successful SEO campaigns and the results I’ve achieved for clients across various industries.
+            Explore my successful ORM campaigns and the results I’ve achieved for clients across various industries.
           </p>
         </div>
 
@@ -16,10 +16,10 @@ export default function CaseStudies() {
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                E-commerce Store SEO
+                E-commerce Store ORM
               </h3>
               <p className="text-gray-600 mb-4">
-                Increased organic traffic by 300% for an online fashion retailer through comprehensive SEO strategy.
+                Increased organic traffic by 300% for an online fashion retailer through comprehensive ORM strategy.
               </p>
               <div className="flex justify-between text-sm text-gray-500">
                 <span>Duration: 6 months</span>

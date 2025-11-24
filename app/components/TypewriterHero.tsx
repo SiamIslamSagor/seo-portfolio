@@ -57,7 +57,7 @@ const TypewriterHero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
           {/* Left Side - Content */}
-          <div className="order-2 lg:order-1">
+          <div className="order-1">
             <div className="space-y-6 ">
               {/* Typewriter Heading */}
               <div className="space-y-2">
@@ -164,7 +164,7 @@ const TypewriterHero = () => {
           </div>
 
           {/* Right Side - Image/Visual */}
-          <div className="order-1 lg:order-2">
+          <div className="order-2">
             <div className="relative">
               {/* Main Image Container */}
               <div className="relative bg-theme-gradient rounded-2xl p-2 sm:p-8 shadow-2xl">

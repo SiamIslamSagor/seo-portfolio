@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import StaggeredMenu from "./StaggeredMenu";
+import { motion } from "framer-motion";
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -115,7 +116,12 @@ const Navigation = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={`navbar ${isScrolled ? "scrolled" : ""}`}
+      >
         <div className="nav-container">
           <Link href="/" className="nav-logo">
             <svg
@@ -180,7 +186,7 @@ const Navigation = () => {
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Navigation - StaggeredMenu */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50">

@@ -1,4 +1,8 @@
+"use client";
+
 /* eslint-disable react/no-unescaped-entities */
+import { motion } from "framer-motion";
+
 export default function Contact() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -13,7 +17,13 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-white rounded-lg shadow-md p-8">
+          <motion.div
+            initial={{ opacity: 0, x: 200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-lg shadow-md p-8"
+          >
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
               Send me a message
             </h2>
@@ -89,10 +99,16 @@ export default function Contact() {
                 Send Message
               </button>
             </form>
-          </div>
+          </motion.div>
 
           {/* Contact Information */}
-          <div className="space-y-8">
+          <motion.div
+            initial={{ opacity: 0, x: -200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
             <div className="bg-white rounded-lg shadow-md p-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">
                 Get in touch
@@ -151,7 +167,7 @@ export default function Contact() {
                 your request.
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

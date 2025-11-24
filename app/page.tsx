@@ -1,10 +1,12 @@
 import Link from "next/link";
 import FAQ from "./components/FAQ";
+import FeaturedService from "./components/FeaturedService";
 import Footer from "./components/Footer";
 import HowIWork from "./components/HowIWork";
 import Testimonials from "./components/Testimonials";
 import TypewriterHero from "./components/TypewriterHero";
 import StatsSection from "./components/Stats";
+import WhyWorkWithMe from "./components/WhyWorkWithMe";
 import Contact from "./contact/page";
 
 export default function Home() {
@@ -130,6 +132,12 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <Testimonials />
+
+      {/* Why Work With Me Section */}
+      <WhyWorkWithMe />
+
+      {/* Featured Service Section */}
+      <FeaturedService />
 
       {/* CTA Section */}
       <section className="py-20">

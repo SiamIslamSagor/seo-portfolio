@@ -112,10 +112,10 @@ const Footer = () => {
 
   const footerLinks = {
     services: [
-      { name: "Technical SEO", href: "/services/technical-seo" },
-      { name: "Local SEO", href: "/services/local-seo" },
+      { name: "Technical ORM", href: "/services/technical-orm" },
+      { name: "Local ORM", href: "/services/local-orm" },
       { name: "Content Strategy", href: "/services/content-strategy" },
-      { name: "SEO Audit", href: "/services/seo-audit" },
+      { name: "ORM Audit", href: "/services/orm-audit" },
       { name: "Analytics & Reporting", href: "/services/analytics" },
     ],
     company: [
@@ -126,7 +126,7 @@ const Footer = () => {
       { name: "Privacy Policy", href: "/privacy" },
     ],
     resources: [
-      { name: "SEO Guide", href: "/resources/seo-guide" },
+      { name: "ORM Guide", href: "/resources/orm-guide" },
       { name: "Free Tools", href: "/resources/tools" },
       { name: "Webinars", href: "/resources/webinars" },
       { name: "E-books", href: "/resources/ebooks" },
@@ -197,9 +197,9 @@ const Footer = () => {
             </div>
 
             <p className="  leading-relaxed mb-8 text-base">
-              Professional SEO services that drive real results. We help
+              Professional ORM services that drive real results. We help
               businesses increase their online visibility, organic traffic, and
-              revenue through data-driven SEO strategies.
+              revenue through data-driven ORM strategies.
             </p>
 
             {/* Contact Info */}

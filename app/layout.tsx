@@ -16,14 +16,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ORM Specialist",
   description:
-    "Professional SEO specialist helping businesses increase online visibility and drive sustainable organic growth through data-driven strategies.",
+    "Professional ORM specialist helping businesses increase online visibility and drive sustainable organic growth through data-driven strategies.",
   keywords:
-    "ORM, ORM Specialist, search engine optimization, online marketing, content strategy, technical SEO",
-  authors: [{ name: "SEO Specialist" }],
+    "ORM, ORM Specialist, search engine optimization, online marketing, content strategy, technical ORM",
+  authors: [{ name: "ORM Specialist" }],
   openGraph: {
     title: "ORM Specialist",
     description:
-      "Professional SEO specialist helping businesses increase online visibility and drive sustainable organic growth.",
+      "Professional ORM specialist helping businesses increase online visibility and drive sustainable organic growth.",
     type: "website",
   },
 };

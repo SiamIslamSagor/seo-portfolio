@@ -36,7 +36,7 @@ export default function Blogs() {
                 Core Web Vitals: A Complete Guide
               </h3>
               <p className="text-gray-600 mb-4">
-                Learn how to optimize your website's Core Web Vitals to improve user experience and search rankings.
+                Learn how to optimize your website’s Core Web Vitals to improve user experience and search rankings.
               </p>
               <a href="#" className="text-blue-600 hover:text-blue-800 font-medium">
                 Read More →

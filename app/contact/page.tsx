@@ -1,13 +1,13 @@
+/* eslint-disable react/no-unescaped-entities */
 export default function Contact() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Contact Me
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Me</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to boost your online presence? Let's discuss how I can help your business grow through SEO.
+            Ready to boost your online presence? Let's discuss how I can help
+            your business grow through SEO.
           </p>
         </div>
 
@@ -19,7 +19,10 @@ export default function Contact() {
             </h2>
             <form className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Name
                 </label>
                 <input
@@ -30,9 +33,12 @@ export default function Contact() {
                   placeholder="Your name"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Email
                 </label>
                 <input
@@ -43,9 +49,12 @@ export default function Contact() {
                   placeholder="your@email.com"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="company"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Company (Optional)
                 </label>
                 <input
@@ -56,9 +65,12 @@ export default function Contact() {
                   placeholder="Your company"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Message
                 </label>
                 <textarea
@@ -69,7 +81,7 @@ export default function Contact() {
                   placeholder="Tell me about your project..."
                 ></textarea>
               </div>
-              
+
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
@@ -85,7 +97,7 @@ export default function Contact() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-6">
                 Get in touch
               </h2>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center">
                   <div className="shrink-0">
@@ -95,10 +107,12 @@ export default function Contact() {
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-900">Email</p>
-                    <p className="text-sm text-gray-600">hello@seoportfolio.com</p>
+                    <p className="text-sm text-gray-600">
+                      sumon@ormspecialist.com
+                    </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center">
                   <div className="shrink-0">
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
@@ -110,7 +124,7 @@ export default function Contact() {
                     <p className="text-sm text-gray-600">+1 (555) 123-4567</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center">
                   <div className="shrink-0">
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
@@ -118,7 +132,9 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-900">Location</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      Location
+                    </p>
                     <p className="text-sm text-gray-600">San Francisco, CA</p>
                   </div>
                 </div>
@@ -130,8 +146,9 @@ export default function Contact() {
                 Response Time
               </h3>
               <p className="text-gray-600">
-                I typically respond to all inquiries within 24 hours. For urgent projects, 
-                please mention it in your message and I'll prioritize your request.
+                I typically respond to all inquiries within 24 hours. For urgent
+                projects, please mention it in your message and I'll prioritize
+                your request.
               </p>
             </div>
           </div>

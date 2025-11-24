@@ -14,13 +14,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SEO Portfolio - Digital Marketing Expert",
-  description: "Professional SEO specialist helping businesses increase online visibility and drive sustainable organic growth through data-driven strategies.",
-  keywords: "SEO, digital marketing, search engine optimization, online marketing, content strategy, technical SEO",
+  title: "ORM Specialist",
+  description:
+    "Professional SEO specialist helping businesses increase online visibility and drive sustainable organic growth through data-driven strategies.",
+  keywords:
+    "ORM, ORM Specialist, search engine optimization, online marketing, content strategy, technical SEO",
   authors: [{ name: "SEO Specialist" }],
   openGraph: {
-    title: "SEO Portfolio - Digital Marketing Expert",
-    description: "Professional SEO specialist helping businesses increase online visibility and drive sustainable organic growth.",
+    title: "ORM Specialist",
+    description:
+      "Professional SEO specialist helping businesses increase online visibility and drive sustainable organic growth.",
     type: "website",
   },
 };
@@ -37,9 +40,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Navigation />
-        <main className="pt-[72px]">
-          {children}
-        </main>
+        <main className="pt-[72px]">{children}</main>
       </body>
     </html>
   );

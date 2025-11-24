@@ -54,18 +54,22 @@
 
 /* Button styles now handled by Tailwind classes */
 /* Prevent FOUC by ensuring button has proper initial styles */
-.sm-toggle, button[class*="bg-blue-600"] {
+.sm-toggle,
+button[class*="bg-blue-600"] {
   color: white !important;
-  background-color: #3B82F6 !important;
+  background-color: #3b82f6 !important;
 }
 
-.sm-toggle svg, button[class*="bg-blue-600"] svg {
+.sm-toggle svg,
+button[class*="bg-blue-600"] svg {
   color: white !important;
   fill: white !important;
 }
 
 /* Ensure text is visible */
-.sm-toggle-textWrap, .sm-toggle-textInner, .sm-toggle-line {
+.sm-toggle-textWrap,
+.sm-toggle-textInner,
+.sm-toggle-line {
   color: white !important;
 }
 
@@ -132,11 +136,10 @@ button[class*="bg-blue-600"] .sm-toggle-line {
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
-[data-position='left'] .staggered-menu-panel {
+[data-position="left"] .staggered-menu-panel {
   right: auto;
   left: 0;
 }
-
 
 .sm-prelayers {
   position: absolute;
@@ -149,7 +152,7 @@ button[class*="bg-blue-600"] .sm-toggle-line {
   z-index: 5;
 }
 
-[data-position='left'] .sm-prelayers {
+[data-position="left"] .sm-prelayers {
   right: auto;
   left: 0;
 }
@@ -230,9 +233,7 @@ button[class*="bg-blue-600"] .sm-toggle-line {
   position: relative;
   padding: 0.5vh 0; /* Use viewport height for responsive padding */
   display: inline-block;
-  transition:
-    color 0.3s ease,
-    opacity 0.3s ease;
+  transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 .sm-socials-link:hover {
@@ -260,14 +261,16 @@ button[class*="bg-blue-600"] .sm-toggle-line {
   position: relative;
   color: #000;
   font-weight: 600;
-  font-size: clamp(2rem, 5vw, 3.5rem); /* Smaller font size to fit more content */
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.5rem
+  ); /* Smaller font size to fit more content */
   cursor: pointer;
   line-height: 1.1; /* Slightly more line height for better readability */
   letter-spacing: -1px; /* Fixed letter spacing for better readability */
   text-transform: uppercase;
-  transition:
-    background 0.25s,
-    color 0.25s;
+  transition: background 0.25s, color 0.25s;
   display: inline-block;
   text-decoration: none;
   padding-right: 2.5rem; /* Reduced padding to bring numbers closer */
@@ -283,7 +286,9 @@ button[class*="bg-blue-600"] .sm-toggle-line {
   opacity: 0.35;
 }
 
-.staggered-menu-panel .sm-socials-list:focus-within .sm-socials-link:not(:focus-visible) {
+.staggered-menu-panel
+  .sm-socials-list:focus-within
+  .sm-socials-link:not(:focus-visible) {
   opacity: 0.35;
 }
 
@@ -363,11 +368,19 @@ button[class*="bg-blue-600"] .sm-toggle-line {
   }
 
   .sm-logo-img {
-    height: clamp(18px, 3.5vh, 28px); /* Responsive logo for very small screens */
+    height: clamp(
+      18px,
+      3.5vh,
+      28px
+    ); /* Responsive logo for very small screens */
   }
 
   .sm-panel-item {
-    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Even smaller font for small phones */
+    font-size: clamp(
+      1.5rem,
+      4vw,
+      2.5rem
+    ); /* Even smaller font for small phones */
     padding-right: 1.5rem; /* Reduced padding for very small screens */
     margin-bottom: 0.3vh; /* Minimal spacing */
   }

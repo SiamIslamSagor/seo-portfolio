@@ -16,7 +16,7 @@ export default function About() {
             <div className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">My Story</h2>
               <p className="text-gray-600 mb-4">
-                With over 5 years of experience in SEO and digital marketing, I've helped dozens of businesses 
+                With over 5 years of experience in SEO and digital marketing, I’ve helped dozens of businesses 
                 increase their online visibility and drive sustainable organic growth. My passion lies in 
                 understanding search algorithms and creating strategies that deliver real results.
               </p>

@@ -7,7 +7,7 @@ export default function CaseStudies() {
             Case Studies
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore my successful SEO campaigns and the results I've achieved for clients across various industries.
+            Explore my successful SEO campaigns and the results I’ve achieved for clients across various industries.
           </p>
         </div>
 

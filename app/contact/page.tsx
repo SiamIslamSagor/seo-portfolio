@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Button } from "@/components/ui/button";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -38,16 +39,18 @@ export default function Contact() {
           },
         });
 
-        contactTl.to(formSectionRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        }).to(
-          infoSectionRef.current,
-          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-          "-=0.4"
-        );
+        contactTl
+          .to(formSectionRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          })
+          .to(
+            infoSectionRef.current,
+            { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+            "-=0.4"
+          );
       }
     });
 
@@ -66,7 +69,10 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div ref={formSectionRef} className="bg-white rounded-lg shadow-md p-8">
+          <div
+            ref={formSectionRef}
+            className="bg-white rounded-lg shadow-md p-8"
+          >
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">
               Send me a message
             </h2>
@@ -135,12 +141,13 @@ export default function Contact() {
                 ></textarea>
               </div>
 
-              <button
+              <Button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
+                size={"sm"}
+                className="w-full cursor-pointer"
               >
                 Send Message
-              </button>
+              </Button>
             </form>
           </div>
 

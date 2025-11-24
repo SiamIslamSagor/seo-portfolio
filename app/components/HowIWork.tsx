@@ -45,10 +45,9 @@ const HowIWork = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {steps.map((step, idx) => (
             <motion.div
-              initial={{ opacity: 0, x: idx % 2 === 0 ? 200 : -200 }}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? 200 : -100 }}
               whileInView={{ opacity: 1, x: 0 }}
-              
-              // viewport={{ once: true }}
+              viewport={{ once: true }}
               transition={{ duration: 0.3 }}
               key={idx}
               className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-500 cursor-pointer"

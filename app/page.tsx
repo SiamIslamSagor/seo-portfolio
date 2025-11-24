@@ -14,6 +14,8 @@ import Contact from "./contact/page";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Button } from "@/components/ui/button";
+import AboutHero from "./components/AboutHero";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -49,19 +51,22 @@ export default function Home() {
           },
         });
 
-        ormTl.to(ormTitleRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        }).to(
-          ormCardsRef.current,
-          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-          "-=0.4"
-        );
+        ormTl
+          .to(ormTitleRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          })
+          .to(
+            ormCardsRef.current,
+            { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+            "-=0.4"
+          );
 
         // Stagger animation for ORM cards
-        const ormCards = ormCardsRef.current?.querySelectorAll<HTMLDivElement>(".orm-card");
+        const ormCards =
+          ormCardsRef.current?.querySelectorAll<HTMLDivElement>(".orm-card");
         if (ormCards && ormCards.length > 0) {
           gsap.fromTo(
             ormCards,
@@ -131,7 +136,10 @@ export default function Home() {
           </div>
 
           {/* Bottom Section — 3 Column Grid */}
-          <div ref={ormCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            ref={ormCardsRef}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
             {/* Card 1 */}
             <div className="orm-card bg-theme-background rounded-lg shadow-theme-light p-8 text-center hover:shadow-lg transition-shadow duration-300">
               <div className="w-16 h-16 bg-theme-accent-light bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -235,12 +243,17 @@ export default function Home() {
       {/* Why Work With Me Section */}
       <WhyWorkWithMe />
 
+      <AboutHero />
+
       {/* Featured Service Section */}
       <FeaturedService />
 
       {/* CTA Section */}
       <section ref={ctaSectionRef} className="py-20">
-        <div ref={ctaContentRef} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div
+          ref={ctaContentRef}
+          className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        >
           <h2 className="text-3xl font-bold text-theme-primary mb-4">
             Ready to Grow Your Business?
           </h2>
@@ -248,9 +261,10 @@ export default function Home() {
             Let's discuss how I can help you achieve your SEO goals and drive
             sustainable organic growth.
           </p>
+
           <Link
             href="/contact"
-            className="bg-theme-accent text-theme-white px-8 py-3 rounded-lg font-medium hover:bg-theme-accent-hover transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+            className="bg-theme-gradient text-theme-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-theme-gradient-hover transform hover:-translate-y-1 transition-all duration-300 shadow-theme-gradient hover:shadow-theme-gradient-hover text-center"
           >
             Start Your Project
           </Link>
